@@ -30,6 +30,8 @@ const ResetGlobal = createGlobalStyle`
 	body {
 		line-height: 1;
 		font-family: "Montserrat";
+		background-color: #F8F8F8;
+		overflow-x:hidden;
 	}
 	ol, ul {
 		list-style: decimal;
@@ -46,7 +48,14 @@ const ResetGlobal = createGlobalStyle`
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
-
+	.heart {
+		width: 20px;
+		height: 20px;
+		margin-left: 5px;
+	}
+	.date {
+		margin-left: 50px;
+	}
 `
 
 export default ResetGlobal

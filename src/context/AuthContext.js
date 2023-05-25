@@ -13,6 +13,11 @@ export default function AuthProvider({children}) {
     const [biography, setBiography] = useState("")
     const [password, setPassword]  = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    
+    const [picture, setPicture] = useState("")
+    const [description, setDescription] = useState("")
+
+    const token = window.localStorage.getItem("token")
 
     function signUp(e){
         e.preventDefault()
@@ -27,6 +32,8 @@ export default function AuthProvider({children}) {
         const promise = axios.post("http://localhost:5000/signup", body)
         promise.then((res) => {
             console.log(res.data)
+            window.localStorage.setItem("profilePicture", res.data.profilePicture)
+            window.localStorage.setItem("nickname", res.data.name)
             navigate("/")
         })
         promise.catch((err) => {
@@ -44,6 +51,11 @@ export default function AuthProvider({children}) {
         const promise = axios.post("http://localhost:5000/signin", body)
         promise.then((res) => {
             console.log(res.data)
+            window.localStorage.clear()
+            window.localStorage.setItem("token", res.data.token)
+            window.localStorage.setItem("userId", res.data.userId)
+            window.localStorage.setItem("profilePicture", res.data.profilePicture)
+            window.localStorage.setItem("nickname", res.data.name)
             navigate("/home")
         })
         promise.catch((err) => {
@@ -52,12 +64,43 @@ export default function AuthProvider({children}) {
         })
     }
 
+    function post(e){
+        e.preventDefault()
+
+        const body = {
+            picture: picture,
+            description: description
+        }
+
+        const config = {
+            headers : { Authorization: `Bearer ${token}` }
+        }
+
+        const promise = axios.post("http://localhost:5000/posts", body, config)
+        promise.then((res) => {
+            console.log(res.data)
+            navigate("/home")
+        })
+        promise.catch((err) => {
+            console.log(err.response.data.message)
+            alert(`Erro: ${err.response.data.message}`)
+        })
+
+
+    }
+   
+
+    function logout() {
+        window.localStorage.clear();
+        navigate("/")
+    }
+    
 
     return(
         <AuthContext.Provider value =
-        {{ name, email,profilePicture, biography, password, confirmPassword,
-        setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword,  
-        signUp, signIn                          
+        {{ name, email,profilePicture, biography, password, confirmPassword, picture, description,
+        setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword, setPicture, setDescription,
+        signUp, signIn, post, logout                   
         }}>
             {children}
         </AuthContext.Provider>
