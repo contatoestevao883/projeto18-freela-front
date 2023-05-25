@@ -8,18 +8,23 @@ export default function AuthProvider({children}) {
     const navigate = useNavigate()
     
     const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const [profilePicture, setProfilePicture] = useState("")
+    const [biography, setBiography] = useState("")
+    const [password, setPassword]  = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
     function signUp(e){
         e.preventDefault()
         const body = {
-            email: email,
             name: name,
-            password: password
+            email: email,
+            profilePicture: profilePicture,
+            biography: biography,
+            password: password,
+            confirmPassword: confirmPassword
         }
-        const promise = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/auth/sign-up", body)
+        const promise = axios.post("http://localhost:5000/signup", body)
         promise.then((res) => {
             console.log(res.data)
             navigate("/")
@@ -30,12 +35,29 @@ export default function AuthProvider({children}) {
         })
     }
 
+    function signIn(e){
+        e.preventDefault()
+        const body = {
+            email: email,
+            password: password,
+        }
+        const promise = axios.post("http://localhost:5000/signin", body)
+        promise.then((res) => {
+            console.log(res.data)
+            navigate("/home")
+        })
+        promise.catch((err) => {
+            console.log(err.response.message)
+            alert(`Erro: ${err.response.data.message}`)
+        })
+    }
+
 
     return(
         <AuthContext.Provider value =
-        {{ name, email, password, confirmPassword,
-        setName, setEmail, setPassword, setConfirmPassword,  
-        signUp                          
+        {{ name, email,profilePicture, biography, password, confirmPassword,
+        setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword,  
+        signUp, signIn                          
         }}>
             {children}
         </AuthContext.Provider>

@@ -29,8 +29,7 @@ const ResetGlobal = createGlobalStyle`
 	}
 	body {
 		line-height: 1;
-        background-color: #0E0E13;
-        font-family: 'Roboto';
+		font-family: "Montserrat";
 	}
 	ol, ul {
 		list-style: decimal;
@@ -46,13 +45,6 @@ const ResetGlobal = createGlobalStyle`
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
-	}
-	Link{
-		display: flex;
-		background-color: red;
-	}
-	img{
-		margin-left:35px;
 	}
 
 `
