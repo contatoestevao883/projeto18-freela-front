@@ -12,7 +12,7 @@ export default function Login() {
                 <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} required/>
                 <input type= "password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required/>
                 <button type="submit">Entrar</button>
-                <Link to="/">
+                <Link to="/sign-up">
                      <span>Não possuí uma conta? Cadastre-se</span>
                 </Link>
             </DivContainer>

@@ -56,6 +56,9 @@ const ResetGlobal = createGlobalStyle`
 	.date {
 		margin-left: 50px;
 	}
+	Link {
+		font-family: "Montserrat";
+	}
 `
 
 export default ResetGlobal

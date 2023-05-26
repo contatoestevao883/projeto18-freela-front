@@ -55,11 +55,14 @@ const DivContainer = styled.div`
     }
 
     p {
+        width: 500px;
         margin-top: 30px;
         margin-bottom: 50px;
+        margin-left: 20px;
     }
 `
 const Logo = styled.img` 
-    height: 400px;
+    height: 350px;
+    width: 550px;
     margin: 20px;
 `

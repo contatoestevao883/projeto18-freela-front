@@ -17,6 +17,8 @@ export default function AuthProvider({children}) {
     const [picture, setPicture] = useState("")
     const [description, setDescription] = useState("")
 
+    const [modal, setModal] = useState(false)
+
     const token = window.localStorage.getItem("token")
 
     function signUp(e){
@@ -32,7 +34,6 @@ export default function AuthProvider({children}) {
         const promise = axios.post("http://localhost:5000/signup", body)
         promise.then((res) => {
             console.log(res.data)
-            window.localStorage.setItem("profilePicture", res.data.profilePicture)
             window.localStorage.setItem("nickname", res.data.name)
             navigate("/")
         })
@@ -53,8 +54,9 @@ export default function AuthProvider({children}) {
             console.log(res.data)
             window.localStorage.clear()
             window.localStorage.setItem("token", res.data.token)
-            window.localStorage.setItem("userId", res.data.userId)
             window.localStorage.setItem("profilePicture", res.data.profilePicture)
+            window.localStorage.setItem("biography", res.data.biography)
+            window.localStorage.setItem("userId", res.data.userId)
             window.localStorage.setItem("nickname", res.data.name)
             navigate("/home")
         })
@@ -64,8 +66,7 @@ export default function AuthProvider({children}) {
         })
     }
 
-    function post(e){
-        e.preventDefault()
+    function post(){
 
         const body = {
             picture: picture,
@@ -85,22 +86,31 @@ export default function AuthProvider({children}) {
             console.log(err.response.data.message)
             alert(`Erro: ${err.response.data.message}`)
         })
-
-
     }
-   
 
     function logout() {
         window.localStorage.clear();
         navigate("/")
     }
+
+    function openModal(e) {
+        e.preventDefault()
+        setModal(true)
+        console.log("Oi")
+        
+    }
+
+    function closeModal() {
+        setModal(false)
+    }
+
     
 
     return(
         <AuthContext.Provider value =
-        {{ name, email,profilePicture, biography, password, confirmPassword, picture, description,
+        {{ name, email, profilePicture, biography, password, confirmPassword, picture, description, modal,
         setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword, setPicture, setDescription,
-        signUp, signIn, post, logout                   
+        signUp, signIn, post, logout, openModal, closeModal                  
         }}>
             {children}
         </AuthContext.Provider>
