@@ -17,7 +17,7 @@ export default function Home() {
     
     useEffect(() =>{
         function listPosts(){
-            const promise = axios.get(`http://localhost:5000/posts/${userId}`)
+            const promise = axios.get(`${process.env.REACT_APP_API_URL}/posts/${userId}`)
             promise.then((res) =>{
                 console.log(res.data)
                 setPostInfo(res.data)

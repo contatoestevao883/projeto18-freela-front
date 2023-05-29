@@ -35,7 +35,7 @@ export default function AuthProvider({children}) {
             password: password,
             confirmPassword: confirmPassword
         }
-        const promise = axios.post("http://localhost:5000/signup", body)
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body)
         promise.then((res) => {
             console.log(res.data)
             window.localStorage.setItem("nickname", res.data.name)
@@ -53,7 +53,7 @@ export default function AuthProvider({children}) {
             email: email,
             password: password,
         }
-        const promise = axios.post("http://localhost:5000/signin", body)
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
         promise.then((res) => {
             console.log(res.data)
             window.localStorage.clear()
@@ -81,7 +81,7 @@ export default function AuthProvider({children}) {
             headers : { Authorization: `Bearer ${token}` }
         }
 
-        const promise = axios.post("http://localhost:5000/posts", body, config)
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/posts`, body, config)
         promise.then((res) => {
             console.log(res.data)
             navigate("/home")
@@ -114,7 +114,7 @@ export default function AuthProvider({children}) {
             headers : { Authorization: `Bearer ${token}` }
         }
 
-        const promise = axios.post(`http://localhost:5000/followed/${userId}`, config)
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/followed/${userId}`, config)
         promise.then((res) => {
             console.log(res.data)
             setFollowingInfo(res.data)

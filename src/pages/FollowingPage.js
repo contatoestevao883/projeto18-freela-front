@@ -18,7 +18,7 @@ export default function Following() {
                 const config = {
                     headers : { Authorization: `Bearer ${token}` }
                 }
-                const promise = axios.get(`http://localhost:5000/follow/${userId}`, config)
+                const promise = axios.get(`${process.env.REACT_APP_API_URL}/follow/${userId}`, config)
                     promise.then((res) =>{
                     console.log(res.data)
                     setFollowingInfo(res.data)

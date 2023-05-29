@@ -19,7 +19,7 @@ export default function Followed() {
                 const config = {
                     headers : { Authorization: `Bearer ${token}` }
                 }
-                const promise = axios.get(`http://localhost:5000/followed/${userId}`, config)
+                const promise = axios.get(`${process.env.REACT_APP_API_URL}/followed/${userId}`, config)
                     promise.then((res) =>{
                     console.log(res.data)
                     setFollowedInfo(res.data)
@@ -36,6 +36,7 @@ export default function Followed() {
               <Header>
                      <Link to={"/home"}>
                         <img src={pfp} alt="profile_picture" />
+                        <h3>{nickname}</h3>
                     </Link>
                     <h1>FOMEBOOK</h1>
                     <button onClick={logout}>Logout</button>
