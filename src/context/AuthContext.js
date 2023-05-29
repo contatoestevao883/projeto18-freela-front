@@ -17,9 +17,13 @@ export default function AuthProvider({children}) {
     const [picture, setPicture] = useState("")
     const [description, setDescription] = useState("")
 
+    const [followedInfo, setFollowedInfo] = useState([])
+    const [followingInfo, setFollowingInfo] = useState([])
+
     const [modal, setModal] = useState(false)
 
     const token = window.localStorage.getItem("token")
+    const userId = window.localStorage.getItem("userId")
 
     function signUp(e){
         e.preventDefault()
@@ -104,13 +108,28 @@ export default function AuthProvider({children}) {
         setModal(false)
     }
 
-    
+    function follow(e){
+        e.preventDefault()
+        const config = {
+            headers : { Authorization: `Bearer ${token}` }
+        }
+
+        const promise = axios.post(`http://localhost:5000/followed/${userId}`, config)
+        promise.then((res) => {
+            console.log(res.data)
+            setFollowingInfo(res.data)
+        })
+        promise.catch((err) => {
+            console.log(err.response.message)
+            alert(`Erro: ${err.response.data.message}`)
+        })
+    }
 
     return(
         <AuthContext.Provider value =
-        {{ name, email, profilePicture, biography, password, confirmPassword, picture, description, modal,
-        setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword, setPicture, setDescription,
-        signUp, signIn, post, logout, openModal, closeModal                  
+        {{ name, email, profilePicture, biography, password, confirmPassword, picture, description, modal, followedInfo, followingInfo,
+        setName, setEmail, setProfilePicture, setBiography, setPassword, setConfirmPassword, setPicture, setDescription, setFollowedInfo, setFollowingInfo,
+        signUp, signIn, post, logout, openModal, closeModal, follow                  
         }}>
             {children}
         </AuthContext.Provider>

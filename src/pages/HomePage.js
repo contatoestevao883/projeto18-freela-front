@@ -34,7 +34,9 @@ export default function Home() {
         <>
             <Header>
                 <div>
-                    <img src={pfp} alt="profile_picture" />
+                    <Link to={"/home"}>
+                        <img src={pfp} alt="profile_picture" />
+                    </Link>
                     <h3>{nickname}</h3>
                 </div>
                 <h1>FOMEBOOK</h1>
@@ -67,11 +69,11 @@ export default function Home() {
                         <p>{biography}</p>
                         <DivLinks>
                             <button onClick={openModal}>Comece seu post aqui!</button>
-                            <Link to={`/followers/${userId}`}>
+                            <Link to={`/following/${userId}`}>
                                 <button>Ver seguidores</button>
                             </Link>
 
-                            <Link to={`/following/${userId}`}>
+                            <Link to={`/followed/${userId}`}>
                             <button>Ver quem eu sigo</button>
                             </Link>
                         </DivLinks>
@@ -186,6 +188,10 @@ const DivFollow = styled.div`
         justify-content: center;
         align-items: center;
         margin: 20px;
+    }
+
+    div h3{
+       background-color: #FFFFFF;
     }
     
 `
